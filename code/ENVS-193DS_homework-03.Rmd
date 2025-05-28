@@ -2,7 +2,10 @@
 title: "ENVS193DS-homework-3"
 author: "Vikesh Dheeriya"
 date: "2025-05-28"
-output: html_document
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
 ---
 # https://github.com/vikeshdh/ENVS-193DS_homework-03
 
@@ -14,14 +17,11 @@ library(janitor)
 
 ```
 
-## R Markdown
+## Part 2
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{Problem 1}
+#I could group my data based on ranges of hours since my last leg workout (e.g., 0–12, 12–24, 24–48, 48+ hours) and calculate the mean vertical jump height within each group. This would help me see if more recovery time improves performance, since fatigue or muscle recovery could directly influence jump height.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
 
 ## Including Plots
