@@ -14,6 +14,8 @@ output:
 library(here)
 library(flextable)
 library(janitor)
+library(ggplot2)
+library(dplyr)
 
 ```
 
@@ -21,15 +23,43 @@ library(janitor)
 
 ```{Problem 1}
 #I could group my data based on ranges of hours since my last leg workout (e.g., 0–12, 12–24, 24–48, 48+ hours) and calculate the mean vertical jump height within each group. This would help me see if more recovery time improves performance, since fatigue or muscle recovery could directly influence jump height.
+S
+# change name of table
+df <- ES193DS_jump
 
-```
+# Rename the nasty column for clarity
+df <- df %>%
+  rename(
+    RecoveryHours = `Time since last leg workout (hours)`,
+    JumpHeight = `Highest Vertical Jump (inches)`
+  )
 
-## Including Plots
+# Create bins for recovery time
+df <- df %>%
+  mutate(RecoveryGroup = cut(RecoveryHours,
+                             breaks = c(0, 12, 24, 48, Inf),
+                             labels = c("0–12 hrs", "12–24 hrs", "24–48 hrs", "48+ hrs"),
+                             right = FALSE))
 
-You can also embed plots, for example:
+# Summarize by group
+summary_df <- df %>%
+  group_by(RecoveryGroup) %>%
+  summarise(MeanJump = mean(JumpHeight, na.rm = TRUE))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Plot
+ggplot(df, aes(x = RecoveryGroup, y = JumpHeight)) +
+  geom_jitter(width = 0.2, color = "#2ca02c", size = 2, alpha = 0.6) +  # individual points
+  geom_point(data = summary_df, aes(y = MeanJump), color = "#ff7f0e", size = 4) +  # mean points
+  geom_line(data = summary_df, aes(x = RecoveryGroup, y = MeanJump, group = 1), 
+            color = "#ff7f0e", size = 1) +  # straight line between means
+  labs(
+    x = "Recovery Time Since Last Leg Workout",
+    y = "Vertical Jump Height (inches)", 
+    caption = "Individual jump heights are shown in green. Orange points and the line represent the mean vertical jump height for each recovery group."
+
+  ) +
+  theme_classic(base_size = 11)
+
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
