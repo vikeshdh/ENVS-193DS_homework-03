@@ -12,7 +12,7 @@ output:
 ```{Reading in packages, include=FALSE}
 
 library(here)
-library(flextable)
+library(gt)
 library(janitor)
 library(ggplot2)
 library(dplyr)
@@ -59,6 +59,22 @@ ggplot(df, aes(x = RecoveryGroup, y = JumpHeight)) +
 
   ) +
   theme_classic(base_size = 11)
+
+
+# Summarize and round the data
+summary_df <- df %>%
+  group_by(RecoveryGroup) %>%
+  summarise(`Mean Jump Height (inches)` = round(mean(JumpHeight, na.rm = TRUE), 1))
+
+# Create the gt table
+summary_df %>%
+  gt() %>%
+  tab_header(
+    title = "Mean Vertical Jump by Recovery Time Group"
+  ) %>%
+  cols_label(
+    RecoveryGroup = "Recovery Time Group"
+  )
 
 ```
 
