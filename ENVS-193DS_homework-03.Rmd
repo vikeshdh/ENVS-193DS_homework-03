@@ -4,8 +4,13 @@ author: "Vikesh Dheeriya"
 date: "2025-05-28"
 output: html_document
 ---
+# https://github.com/vikeshdh/ENVS-193DS_homework-03
 
-```{r setup, include=FALSE}
+```{Reading in packages, include=FALSE}
+
+library(here)
+library(flextable)
+library(janitor)
 
 ```
 
