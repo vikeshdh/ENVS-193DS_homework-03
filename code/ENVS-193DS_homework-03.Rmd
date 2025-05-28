@@ -78,4 +78,6 @@ summary_df %>%
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r Problem 2}
+#Problem 2
+#Training vertical jump sometimes feels like climbing a mountain. Some days you see progress dip while other days you reach unprecedented heights. I could have a linear graph of date on the x axis and vertical jump on the y axis. Days where I have a have a higher soreness index could be red while days where I feel fresh are shaded green. This would help visualize how I've progressed over time and also the ups and downs of training. 
