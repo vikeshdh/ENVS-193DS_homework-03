@@ -3,13 +3,13 @@ title: "ENVS193DS-homework-3"
 author: "Vikesh Dheeriya"
 date: "2025-05-28"
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 # https://github.com/vikeshdh/ENVS-193DS_homework-03
 
-```{Reading in packages, include=FALSE}
+```{r setup}
 
 library(here)
 library(gt)
@@ -21,17 +21,17 @@ library(dplyr)
 
 ## Part 2
 
-```{Problem 1}
-#I could group my data based on ranges of hours since my last leg workout (e.g., 0–12, 12–24, 24–48, 48+ hours) and calculate the mean vertical jump height within each group. This would help me see if more recovery time improves performance, since fatigue or muscle recovery could directly influence jump height.
-S
+I could group my data based on ranges of hours since my last leg workout (e.g., 0–12, 12–24, 24–48, 48+ hours) and calculate the mean vertical jump height within each group. This would help me see if more recovery time improves performance, since fatigue or muscle recovery could directly influence jump height.
+
+```{r Problem 1}
 # change name of table
-df <- ES193DS_jump
+df <- read.csv(here::here("ES193_jump.csv"))
 
 # Rename the nasty column for clarity
 df <- df %>%
   rename(
-    RecoveryHours = `Time since last leg workout (hours)`,
-    JumpHeight = `Highest Vertical Jump (inches)`
+    RecoveryHours = `Time.since.last.leg.workout..hours.`,
+    JumpHeight = `Highest.Vertical.Jump..inches.`
   )
 
 # Create bins for recovery time
@@ -58,7 +58,7 @@ ggplot(df, aes(x = RecoveryGroup, y = JumpHeight)) +
     caption = "Individual jump heights are shown in green. Orange points and the line represent the mean vertical jump height for each recovery group."
 
   ) +
-  theme_classic(base_size = 11)
+  theme_classic(base_size = 10)
 
 
 # Summarize and round the data
@@ -78,6 +78,62 @@ summary_df %>%
 
 ```
 
-```{r Problem 2}
-#Problem 2
-#Training vertical jump sometimes feels like climbing a mountain. Some days you see progress dip while other days you reach unprecedented heights. I could have a linear graph of date on the x axis and vertical jump on the y axis. Days where I have a have a higher soreness index could be red while days where I feel fresh are shaded green. This would help visualize how I've progressed over time and also the ups and downs of training. 
+
+Training vertical jump sometimes feels like climbing a mountain. Some days you see progress dip while other days you reach unprecedented heights. I could have a linear graph of date on the x axis and vertical jump on the y axis. Days where I have a have a higher soreness index could be red while days where I feel fresh are shaded green. This would help visualize how I've progressed over time and also the ups and downs of training.
+
+
+```{r jump-image, echo=FALSE, fig.align='center'}
+knitr::include_graphics(here::here("jump_draft.jpg"))
+```
+
+```{r Affective Visualization}
+# Plot
+library(ggplot2)
+library(dplyr)
+
+
+df_jump <- read.csv(here::here("ES193_jump.csv")) %>%
+  rename(
+    JumpHeight = `Highest.Vertical.Jump..inches.`,
+    Soreness = `Soreness.Index..1.10.`,
+    JumpDate = Date
+  ) %>%
+  mutate(
+    JumpDate = as.Date(JumpDate, format = "%m/%d")
+  ) %>%
+  arrange(JumpDate)
+
+ggplot(df_jump, aes(x = JumpDate, y = JumpHeight)) +
+  # Mountain shape
+  geom_area(fill = "gray90", alpha = 0.8) +
+  
+  # Add color overlay points
+  geom_point(aes(color = Soreness), size = 4, alpha = 0.9) +
+  
+  # Trend line on top
+  geom_line(color = "black", size = 1.2) +
+  
+  # Color scale
+  scale_color_gradientn(colors = c("green3", "yellow", "red"), name = "Soreness") +
+  
+  # Y-axis control
+  scale_y_continuous(limits = c(25, 35), expand = c(0, 0)) +
+  
+  #labels and title
+  labs(
+    title = "How Jump Height is Influenced By Soreness",
+    x = "Date",
+    y = "Vertical Jump Height (inches)"
+  ) +
+  
+  # Theme
+  theme_minimal(base_size = 11) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 18),
+    axis.title = element_text(face = "bold"),
+    panel.grid = element_blank(),
+    legend.position = "right"
+  )
+
+
+```
