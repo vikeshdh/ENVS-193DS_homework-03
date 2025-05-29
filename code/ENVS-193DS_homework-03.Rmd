@@ -9,14 +9,14 @@ output:
 ---
 # https://github.com/vikeshdh/ENVS-193DS_homework-03
 
-```{r setup}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 library(here)
 library(gt)
 library(janitor)
 library(ggplot2)
 library(dplyr)
-
 ```
 
 ## Part 2
@@ -88,9 +88,6 @@ knitr::include_graphics(here::here("jump_draft.jpg"))
 
 ```{r Affective Visualization}
 # Plot
-library(ggplot2)
-library(dplyr)
-
 
 df_jump <- read.csv(here::here("ES193_jump.csv")) %>%
   rename(
@@ -140,3 +137,20 @@ ggplot(df_jump, aes(x = JumpDate, y = JumpHeight)) +
 d) I am showing context to the flucuations of physical training. Progress isn't a straight line. I used nature to inspire my work. I was thinking about mountains and the reasons why they have crevices and imperfect peaks. The process of millions of years of erosion and uplift create what they are today -- similair to how our current progress is the summation of all the steps we took to get there. The code was written to showcase that mountainous horizon. I looked up more data visualization techniques to highlight the different spectrum of soreness in an visually appealing way. 
 
 
+Part 3
+
+a) This paper tested multiple linear regression methods to assess the relationship betweene
+environmental predictors and waterhole hydrology. The response variables are waterhole
+extent and duration. The predictor variables are precipitation, temperature, and soil
+texture classes
+
+```{r ewh-table, echo=FALSE, fig.align='center'}
+knitr::include_graphics(here::here("ewh_table.png"))
+```
+
+b) The table is organized, clearly showing predictor and response variables across temporal scales. Each cell is labeled with effect size and p-value, helping the reader interpret both the strength and significance of the environmental predictors. It may be a little too simple as it doesn't neccesarily catch the readers eye with shading or bolding. It may be easy for the reader to miss the important statistics that are presented in the table. 
+
+
+c) The table has minimal clutter. This improves the readability but nothing is outwardly distinguished. The lack of lines makes it more difficult for the reader to see what value corresponds to what predictor. There is no bolding or italics that draw the reader to a specific number. The empty space, however, is easy on the eyes as a reader. 
+
+d) It would make sense to bold the B and P-values, allowing the reader to be drawn to the important numbers when looking briefly at the table. The author could also shade in every other row to improve the readability of the table from left to right. This creates an easier time skimming. Shading of every other column would also help when looking at the predictor variables statistics as there are too many numbers grouped together without clear division. 
