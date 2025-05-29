@@ -137,3 +137,6 @@ ggplot(df_jump, aes(x = JumpDate, y = JumpHeight)) +
 
 
 ```
+d) I am showing context to the flucuations of physical training. Progress isn't a straight line. I used nature to inspire my work. I was thinking about mountains and the reasons why they have crevices and imperfect peaks. The process of millions of years of erosion and uplift create what they are today -- similair to how our current progress is the summation of all the steps we took to get there. The code was written to showcase that mountainous horizon. I looked up more data visualization techniques to highlight the different spectrum of soreness in an visually appealing way. 
+
+
